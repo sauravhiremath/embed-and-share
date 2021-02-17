@@ -4,7 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const consola = require("consola");
 const helmet = require("helmet");
-const routes = require("./routes");
+const controller = require("./controller");
 
 const app = express();
 
@@ -16,7 +16,7 @@ app.use(helmet.xssFilter());
 app.use(helmet.noSniff());
 app.disable("x-powered-by");
 
-app.use("/api", routes);
+app.use("/api", controller);
 
 app.get("/ping", (req, res) => {
   res.send(`Ping test working - ${Date.now()}`);
