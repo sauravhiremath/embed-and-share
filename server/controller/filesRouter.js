@@ -107,6 +107,12 @@ router.post("/verify", upload.single("zipFile"), async (req, res) => {
       .json({ error: "No zip file uploaded. Kindly try again" });
   }
 
+  if (file.mimetype !== "application/zip") {
+    return res.status(400).json({
+      error: "Wrong file type! Kindly upload a signed zip file",
+    });
+  }
+
   try {
     const { typingPattern } = body;
 
