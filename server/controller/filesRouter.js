@@ -20,8 +20,12 @@ const upload = Multer({
   },
 });
 
-router.post("/send", upload.array("files", 12), async (req, res) => {
+router.post("/send", upload.array("docs", 12), async (req, res) => {
   const { body, files } = req;
+
+  for (const file of files) {
+    consola.info(file.originalname);
+  }
 
   if (files.length <= 0) {
     return res
@@ -40,48 +44,51 @@ router.post("/send", upload.array("files", 12), async (req, res) => {
       });
     }
 
-    typingDnaClient.auto(
-      userId,
-      typingPattern,
-      { device: "desktop" },
-      (err, response) => {
-        if (err) {
-          consola.warn(err);
-          res.status(500).json({
-            success: false,
-            error: err,
-            data: "Internal Server Erorr. Please try again",
-          });
-        } else {
-          const mz = new Minizip();
-          const hashes = "";
-          for (const file in files) {
-            if (password) {
-              mz.append(file.originalname, file.buffer, { password });
-              hashes += "/";
-              hashes += hasha(file.buffer);
-            }
-          }
-
-          const verificationToken = `${userId}/${typingPattern}${hashes}`;
-          mz.append(
-            "verify-token.txt",
-            Buffer.from(verificationToken, "utf-8")
-          );
-          mz.append(
-            "tokenHash.txt",
-            Buffer.from(hasha(verificationToken), "utf-8")
-          );
-
-          res.status(200).json({
-            success: true,
-            file: mz.zip(),
-            typingDNAResponse: response,
-            message: "Your files are successfully signed using your typingDNA",
+    typingDnaClient.auto(userId, typingPattern, (err, response) => {
+      if (err) {
+        consola.warn(err);
+        return res.status(500).json({
+          success: false,
+          error: err,
+          data: "Internal Server Erorr. Please try again",
+        });
+      } else {
+        consola.info(JSON.stringify(response));
+        if (response.statusCode !== 200) {
+          return res.status(response.statusCode).json({
+            name: response.name,
+            message: response.message,
           });
         }
+
+        const mz = new Minizip();
+        let hashes = "";
+        for (const file of files) {
+          if (password) {
+            mz.append(file.originalname, file.buffer, {
+              password,
+              compressLevel: 5,
+            });
+            hashes += "\n";
+            hashes += hasha(file.buffer);
+          }
+        }
+
+        const verificationToken = `${userId}\n${typingPattern}\n${hashes}`;
+        mz.append("verify-token.txt", Buffer.from(verificationToken, "utf-8"));
+        mz.append(
+          "tokenHash.txt",
+          Buffer.from(hasha(verificationToken), "utf-8")
+        );
+
+        res.status(200).json({
+          success: true,
+          signedFile: mz.zip(),
+          typingDNAResponse: response,
+          message: "Your files are successfully signed using your typingDNA",
+        });
       }
-    );
+    });
   } catch (error) {
     consola.error(error);
     res
