@@ -27,6 +27,7 @@ import { getColorForPercentage } from "../../helpers";
 import { sample1, sample2, sample3 } from "./typingPatternSample";
 import UploadFile from "./UploadFile";
 import SignFiles from "../../assets/sign-files.svg";
+import BASE_URL from "../../config";
 
 const agreementContent1 =
   "By clicking submit, I understand none of my data is stored on the servers";
@@ -96,7 +97,7 @@ function TypingDNA() {
     formData1.append("password", password);
     formData1.append("typingPattern", typingPattern1);
 
-    const res1 = await fetch("http://localhost:8080/api/dna/send", {
+    const res1 = await fetch(`${BASE_URL}/api/dna/send`, {
       method: "POST",
       body: formData1,
     });
@@ -118,14 +119,14 @@ function TypingDNA() {
 
       await new Promise((r) => setTimeout(r, 1000));
 
-      const res2 = await fetch("http://localhost:8080/api/dna/verify", {
+      const res2 = await fetch(`${BASE_URL}/api/dna/verify`, {
         method: "POST",
         body: formData2,
       });
 
       await new Promise((r) => setTimeout(r, 1000));
 
-      const res3 = await fetch("http://localhost:8080/api/dna/verify", {
+      const res3 = await fetch(`${BASE_URL}/api/dna/verify`, {
         method: "POST",
         body: formData3,
       });
@@ -160,7 +161,7 @@ function TypingDNA() {
     formData.append("zipFile", fileBuffers[0]);
     formData.append("typingPattern", typingPattern);
 
-    const res = await fetch("http://localhost:8080/api/dna/verify", {
+    const res = await fetch(`${BASE_URL}/api/dna/verify`, {
       method: "POST",
       body: formData,
     });
