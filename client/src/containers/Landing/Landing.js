@@ -1,8 +1,18 @@
 import "./Landing.css";
-import { Row, Image, Spacer, Text, Display, Page, Col } from "@geist-ui/react";
+import {
+  Row,
+  Image,
+  Spacer,
+  Text,
+  Display,
+  Page,
+  Col,
+  Link,
+} from "@geist-ui/react";
 import TwoFactor from "../../assets/two-fac.svg";
 
 import TypingDNA from "../TypingDNA/TypingDnaView";
+import About from "../About/About";
 
 function Landing() {
   return (
@@ -11,13 +21,13 @@ function Landing() {
         <Page.Header></Page.Header>
         <Page.Content>
           <Row justify="start" align="middle">
-            <Text h1 size="5vw" type="secondary">
+            <Text h1 size={100} type="secondary">
               Embed
             </Text>
-            <Text h1 size="5vw" type="success">
+            <Text h1 size={100} type="success">
               &
             </Text>
-            <Text h1 size="5vw" type="secondary">
+            <Text h1 size={100} type="secondary">
               Share
             </Text>
           </Row>
@@ -47,12 +57,19 @@ function Landing() {
               </Text>
             </Col>
           </Row>
-          <Spacer y={5} />
+          <Spacer y={3} />
           <TypingDNA />
-          <Spacer y={1.5} />
+          <Spacer y={3} />
+          <About />
         </Page.Content>
         <Page.Footer>
-          © https://github.com/sauravhiremath/hex-cambridge-2021
+          <Link
+            href="https://github.com/sauravhiremath/embed-and-share"
+            icon
+            color
+          >
+            © https://github.com/sauravhiremath/embed-and-share
+          </Link>
         </Page.Footer>
       </Page>
     </div>
