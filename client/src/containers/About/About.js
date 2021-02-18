@@ -17,7 +17,7 @@ function About() {
     {
       strength: <Text b>Unique Embed Design</Text>,
       reasoning:
-        "It gets embedded with the documents of ANY type to protect its integrity using sha512 algorithm",
+        "It gets embedded with the documents of ANY type to protect its integrity using the sha512 algorithm",
     },
     {
       strength: <Text b>Security</Text>,
@@ -25,17 +25,17 @@ function About() {
     },
     {
       strength: <Text b>More Security</Text>,
-      reasoning: `Allows user to add a password protection layer, if they want it more secure`,
+      reasoning: `Allows the user to add a password protection layer, if they want it more secure`,
     },
     {
-      strength: <Text b>Plagarism</Text>,
+      strength: <Text b>No Plagiarism</Text>,
       reasoning:
         "Easy validation of your content will help reduce data copying and modification",
     },
     {
       strength: <Text b>Data privacy</Text>,
       reasoning:
-        "Well its a feature of typingDNA not our proprietry feature. But still we uphold it",
+        "Well it's a feature of typingDNA, not our proprietary feature. But still, we uphold it",
     },
   ];
 
