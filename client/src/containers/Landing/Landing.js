@@ -1,16 +1,5 @@
 import "./Landing.css";
-import { useEffect, useState } from "react";
-import {
-  Row,
-  Image,
-  Spacer,
-  Text,
-  Display,
-  Page,
-  Card,
-  Col,
-} from "@geist-ui/react";
-import Splash from "../../assets/splash.svg";
+import { Row, Image, Spacer, Text, Display, Page, Col } from "@geist-ui/react";
 import TwoFactor from "../../assets/two-fac.svg";
 
 import TypingDNA from "../TypingDNA/TypingDnaView";
@@ -23,7 +12,7 @@ function Landing() {
         <Page.Content>
           <Row justify="start" align="middle">
             <Text h1 size="5vw" type="secondary">
-              Sign
+              Embed
             </Text>
             <Text h1 size="5vw" type="success">
               &
