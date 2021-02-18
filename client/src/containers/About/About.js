@@ -1,16 +1,4 @@
-import {
-  Grid,
-  Row,
-  Image,
-  Spacer,
-  Text,
-  Display,
-  Page,
-  Col,
-  Link,
-  Code,
-  Table,
-} from "@geist-ui/react";
+import { Grid, Image, Spacer, Text, Table } from "@geist-ui/react";
 import SignFileArchitecture from "../../assets/signFileArchitecture.png";
 import VerifyFileArchitecture from "../../assets/verifyFileArchitecture.png";
 import ReviewsImage from "../../assets/reviews.svg";

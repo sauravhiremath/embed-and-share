@@ -1,7 +1,7 @@
 import "./TypingDNA.css";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { Card, Grid, Row, Text, Tree } from "@geist-ui/react";
+import { Card, Grid, Text, Tree } from "@geist-ui/react";
 import { Upload } from "@geist-ui/react-icons";
 
 const UploadFile = ({ setFileBuffers }) => {
