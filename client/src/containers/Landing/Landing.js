@@ -49,7 +49,7 @@ function Landing() {
               </Text>
               <Text p b type="warning" size="1.1em">
                 Are you a designer? A musician? A developer? The next business
-                tycoon?
+                tycoon? A freelancer? We got you covered
               </Text>
               <Text p type="secondary" size="1.15em">
                 Secure your content now. Your work belongs only to you, and our
