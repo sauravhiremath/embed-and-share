@@ -1,0 +1,24 @@
+.myCourse {
+  justify-content: end;
+}
+
+.upload {
+  display: flex;
+  text-align: center;
+}
+
+.dropzone {
+  border-color: #eeeeee !important;
+  background-color: #eaf4ff !important;
+  color: #002f4b !important;
+  outline: none !important;
+  transition: border 0.24s ease-in-out !important;
+}
+
+.dropzone:focus {
+  border-color: #fabc48 !important;
+}
+
+.dropzone.disabled {
+  opacity: 0.6;
+}
