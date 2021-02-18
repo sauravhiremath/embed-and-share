@@ -351,7 +351,7 @@ function TypingDNA() {
                   <h4>Typing Match Score</h4>
                 </Card.Content>
                 <Card.Footer>
-                  <Link block href="/">
+                  <Link block href="/#architecture">
                     View calculation
                   </Link>
                 </Card.Footer>

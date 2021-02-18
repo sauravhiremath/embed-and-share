@@ -74,7 +74,7 @@ function About() {
               Files Signature Embed Architecture
             </Text>
           </Grid>
-          <Grid sm={24}>
+          <Grid sm={24} id="architecture">
             <Image src={SignFileArchitecture} />
           </Grid>
           <Spacer />
