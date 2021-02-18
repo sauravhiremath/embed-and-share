@@ -18,8 +18,16 @@ import {
   Input,
   Dot,
   Code,
+  useToasts,
+  Toggle,
 } from "@geist-ui/react";
-import { FileText } from "@geist-ui/react-icons";
+import { saveAs } from "file-saver";
+import {
+  FileText,
+  Download,
+  CheckCircle,
+  CloudLightning,
+} from "@geist-ui/react-icons";
 import NumberEasing from "react-number-easing";
 import { getColorForPercentage } from "../../helpers";
 import typingPatternSample from "./typingPatternSample";
@@ -35,6 +43,16 @@ function TypingDNA() {
   const [typingScore, setTypingScore] = useState(88);
   const [password, setPassword] = useState("");
   const [fileBuffers, setFileBuffers] = useState([]);
+  const [isLoading, setLoading] = useState(false);
+  const [fileData, setFileData] = useState("");
+  const [verificationMode, setVerificationMode] = useState(false);
+  const [, setToast] = useToasts();
+
+  const handleToast = (message) =>
+    setToast({
+      text: message,
+      type: "success",
+    });
 
   const getTypingPattern = () => {
     const typingPattern = tdna.getTypingPattern({
@@ -42,11 +60,17 @@ function TypingDNA() {
       text: agreementContent,
       targetId: "typingRecorder",
     });
+
+    if (!typingPattern) {
+      return typingPatternSample.replace(",,", ",0,");
+    }
+
     return typingPattern.replace(",,", ",0,");
     // return typingPattern;
   };
 
   const sendTypingPattern = async () => {
+    setLoading(true);
     const typingPattern = getTypingPattern();
     const formData = new FormData();
     for (const fileBuffer of fileBuffers) {
@@ -62,13 +86,16 @@ function TypingDNA() {
 
     if (res.status === 200) {
       const data = await res.json();
+      handleToast(data.message);
+      setLoading(false);
+      setFileData(data.signedFile);
       console.log(data);
     }
   };
 
   return (
     <Grid.Container justify="space-between">
-      <Grid xs={14}>
+      <Grid xs={15}>
         <Grid.Container justify="flex-start">
           {/* <Grid>
             <Card shadow>
@@ -95,6 +122,32 @@ function TypingDNA() {
               </Card.Footer>
             </Card>
           </Grid> */}
+          <Grid sm={24} alignItems="baseline">
+            <Text h2>Demo</Text>
+            <Spacer x={0.5} />
+            <CheckCircle />
+            <Spacer x={0.5} />
+            {!verificationMode && (
+              <Text h2 type="warning">
+                - sign documents
+              </Text>
+            )}
+            {verificationMode && (
+              <Text h2 type="warning">
+                - verify documents
+              </Text>
+            )}
+            <Spacer x={0.5} />
+            <Text small type="success">
+              <Toggle
+                size="large"
+                checked={verificationMode}
+                onChange={(e) => setVerificationMode(e.target.checked)}
+              />
+              {!verificationMode && "switch to verify mode"}
+              {verificationMode && "switch to signing mode"}
+            </Text>
+          </Grid>
           <Grid sm={24}>
             <Text blockquote type="error">
               {agreementContent}
@@ -108,17 +161,20 @@ function TypingDNA() {
             />
           </Grid>
           <Spacer />
-          <Grid sm={24}>
-            <Input
-              label="Password"
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-            >
-              <Dot type="warning">
-                <Text small>Optional for securing zip files</Text>
-              </Dot>
-            </Input>
-          </Grid>
+          {!verificationMode && (
+            <Grid sm={24}>
+              <Input
+                label="Password"
+                type="password"
+                autoComplete="new-password"
+                onChange={(e) => setPassword(e.target.value)}
+              >
+                <Dot type="warning">
+                  <Text small>Optional for securing zip files</Text>
+                </Dot>
+              </Input>
+            </Grid>
+          )}
           <Grid sm={24}>
             <Grid.Container justify="center">
               <Grid sm={24}>
@@ -132,24 +188,67 @@ function TypingDNA() {
             </Grid.Container>
           </Grid>
           <Spacer />
-          <Grid sm={24}>
-            <Button
-              auto
-              shadow
-              icon={<FileText />}
-              type="secondary-light"
-              style={{ width: "100%" }}
-              onClick={sendTypingPattern}
-            >
-              Submit for signing
-            </Button>
-          </Grid>
+          {!verificationMode && (
+            <Grid sm={24}>
+              {fileData === "" && (
+                <Button
+                  auto
+                  shadow
+                  loading={isLoading}
+                  icon={<FileText />}
+                  type="secondary-light"
+                  style={{ width: "100%" }}
+                  onClick={sendTypingPattern}
+                >
+                  Submit for signing
+                </Button>
+              )}
+              {fileData !== "" && (
+                <Button
+                  auto
+                  shadow
+                  type="success-light"
+                  style={{ cursor: "pointer" }}
+                  icon={<Download />}
+                  onClick={() => {
+                    const blobbedData = new Blob([
+                      new Uint8Array(fileData.data).buffer,
+                    ]);
+                    saveAs(blobbedData, "my-secure-data.zip");
+                  }}
+                >
+                  <Text h4>download signed files</Text>
+                </Button>
+              )}
+            </Grid>
+          )}
+          {verificationMode && (
+            <Grid sm={24}>
+              {fileData === "" && (
+                <Button
+                  auto
+                  shadow
+                  loading={isLoading}
+                  icon={<CloudLightning />}
+                  type="secondary-light"
+                  style={{ width: "100%" }}
+                  onClick={sendTypingPattern}
+                >
+                  Check for verification
+                </Button>
+              )}
+            </Grid>
+          )}
         </Grid.Container>
       </Grid>
-      <Grid xs={7}>
-        <Display width="30vw">
-          <Image height={400} src={SignFiles} />
-        </Display>
+      <Grid xs={9}>
+        <Grid.Container justify="flex-start">
+          <Grid>
+            <Display>
+              <Image height={400} src={SignFiles} />
+            </Display>
+          </Grid>
+        </Grid.Container>
       </Grid>
     </Grid.Container>
   );
