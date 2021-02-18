@@ -1,4 +1,4 @@
-service: ezshare-api
+service: embed-and-share-api
 runtime: nodejs12
 
 handlers:

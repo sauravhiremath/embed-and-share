@@ -1,5 +1,5 @@
 {
-  "name": "sign-share-client",
+  "name": "embed-and-share-client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
