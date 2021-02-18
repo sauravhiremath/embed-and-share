@@ -1,23 +1,17 @@
 import "./TypingDNA.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { tdna } from "./typingdna";
 import {
-  Row,
-  Breadcrumbs,
   Spacer,
   Text,
   Button,
-  Page,
-  Col,
   Card,
   Grid,
   Image,
   Link,
   Display,
-  Textarea,
   Input,
   Dot,
-  Code,
   useToasts,
   Toggle,
 } from "@geist-ui/react";
@@ -30,17 +24,14 @@ import {
 } from "@geist-ui/react-icons";
 import NumberEasing from "react-number-easing";
 import { getColorForPercentage } from "../../helpers";
-import typingPatternSample from "./typingPatternSample";
+import { sample1, sample2, sample3 } from "./typingPatternSample";
 import UploadFile from "./UploadFile";
 import SignFiles from "../../assets/sign-files.svg";
 
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
-
 const agreementContent1 =
-  "By clicking submit, I agree to use my typing dna to securely sign my documents";
-const agreementContent2 =
-  "I understand none of my data is stored on the servers";
-const agreementContent3 = "I abide by typing dna terms and conditions";
+  "By clicking submit, I understand none of my data is stored on the servers";
+const agreementContent2 = agreementContent1;
+const agreementContent3 = agreementContent1;
 
 function TypingDNA() {
   const [typingScore, setTypingScore] = useState(undefined);
@@ -76,7 +67,16 @@ function TypingDNA() {
     });
 
     if (!typingPattern) {
-      return typingPatternSample.replace(",,", ",0,");
+      switch (target) {
+        case 1:
+          return sample1.replace(",,", ",0,");
+        case 2:
+          return sample2.replace(",,", ",0,");
+        case 3:
+          return sample3.replace(",,", ",0,");
+        default:
+          break;
+      }
     }
 
     return typingPattern.replace(",,", ",0,");
@@ -104,14 +104,16 @@ function TypingDNA() {
     if (res1.status === 200) {
       const data1 = await res1.json();
       console.log(data1);
-      const signedBuffer = new Blob([toArrayBuffer(data1.signedFile.data)]);
+      const signedBuffer = new Blob([toArrayBuffer(data1.signedFile.data)], {
+        type: "application/zip",
+      });
 
       const formData2 = new FormData();
-      formData2.append("zipFile", signedBuffer, "my-secure-docs.zip");
+      formData2.append("zipFile", signedBuffer);
       formData2.append("typingPattern", typingPattern2);
 
       const formData3 = new FormData();
-      formData3.append("zipFile", signedBuffer, "my-secure-docs.zip");
+      formData3.append("zipFile", signedBuffer);
       formData3.append("typingPattern", typingPattern3);
 
       await new Promise((r) => setTimeout(r, 1000));
@@ -134,7 +136,6 @@ function TypingDNA() {
 
         console.log(data2);
         console.log(data3);
-        setTypingScore(data3?.highConfidence * 100);
         handleToast(data1.message);
         handleToast(data2.message);
         handleToast(data3.message);
@@ -157,7 +158,7 @@ function TypingDNA() {
     const typingPattern = getTypingPattern(1);
     const formData = new FormData();
     formData.append("zipFile", fileBuffers[0]);
-    formData.append("typingPattern", typingPattern || typingPatternSample);
+    formData.append("typingPattern", typingPattern);
 
     const res = await fetch("http://localhost:8080/api/dna/verify", {
       method: "POST",
@@ -167,7 +168,7 @@ function TypingDNA() {
     if (res.status === 200) {
       const data = await res.json();
       handleToast(data.message);
-      setTypingScore(data.highConfidence * 100);
+      setTypingScore(data?.typingDNAResponse?.highConfidence * 100);
       setLoading(false);
       console.log(data);
     } else {
@@ -230,34 +231,42 @@ function TypingDNA() {
               id="typingRecorder1"
             />
           </Grid>
-          <Grid sm={24}>
-            <Text blockquote type="error">
-              {agreementContent2}
-            </Text>
-          </Grid>
-          <Grid sm={24}>
-            <Input
-              value={userAgreementContent2}
-              onChange={(e) => setUserAgreementContent2(e.target.value)}
-              placeholder="Type the above text here..."
-              width="100%"
-              id="typingRecorder2"
-            />
-          </Grid>
-          <Grid sm={24}>
-            <Text blockquote type="error">
-              {agreementContent3}
-            </Text>
-          </Grid>
-          <Grid sm={24}>
-            <Input
-              value={userAgreementContent3}
-              onChange={(e) => setUserAgreementContent3(e.target.value)}
-              placeholder="Type the above text here..."
-              width="100%"
-              id="typingRecorder3"
-            />
-          </Grid>
+          {!verificationMode && (
+            <Grid sm={24}>
+              <Text blockquote type="error">
+                {agreementContent2}
+              </Text>
+            </Grid>
+          )}
+          {!verificationMode && (
+            <Grid sm={24}>
+              <Input
+                value={userAgreementContent2}
+                onChange={(e) => setUserAgreementContent2(e.target.value)}
+                placeholder="Type the above text here..."
+                width="100%"
+                id="typingRecorder2"
+              />
+            </Grid>
+          )}
+          {!verificationMode && (
+            <Grid sm={24}>
+              <Text blockquote type="error">
+                {agreementContent3}
+              </Text>
+            </Grid>
+          )}
+          {!verificationMode && (
+            <Grid sm={24}>
+              <Input
+                value={userAgreementContent3}
+                onChange={(e) => setUserAgreementContent3(e.target.value)}
+                placeholder="Type the above text here..."
+                width="100%"
+                id="typingRecorder3"
+              />
+            </Grid>
+          )}
           <Spacer />
           {!verificationMode && (
             <Grid sm={24}>
@@ -320,6 +329,35 @@ function TypingDNA() {
               )}
             </Grid>
           )}
+          <Spacer />
+          {typingScore && (
+            <Grid sm={24}>
+              <Card shadow hoverable>
+                <Card.Content>
+                  <h2
+                    style={{
+                      color: getColorForPercentage(typingScore / 100),
+                    }}
+                  >
+                    <NumberEasing
+                      value={typingScore}
+                      speed={3000}
+                      decimals={1}
+                      ease="cubicOut"
+                    />
+                    %
+                  </h2>
+                  <h4>Typing Match Score</h4>
+                </Card.Content>
+                <Card.Footer>
+                  <Link block href="/">
+                    View calculation
+                  </Link>
+                </Card.Footer>
+              </Card>
+            </Grid>
+          )}
+          <Spacer />
           {verificationMode && (
             <Grid sm={24}>
               {fileData === "" && (
@@ -335,33 +373,6 @@ function TypingDNA() {
                   Check for verification
                 </Button>
               )}
-            </Grid>
-          )}
-          {typingScore && (
-            <Grid>
-              <Card shadow>
-                <Card.Content>
-                  <h1
-                    style={{
-                      color: getColorForPercentage(typingScore / 100),
-                    }}
-                  >
-                    <NumberEasing
-                      value={typingScore}
-                      speed={3000}
-                      decimals={1}
-                      ease="cubicOut"
-                    />
-                    %
-                  </h1>
-                  <h3>Typing Match Score</h3>
-                </Card.Content>
-                <Card.Footer>
-                  <Link block href="/">
-                    View calculation
-                  </Link>
-                </Card.Footer>
-              </Card>
             </Grid>
           )}
         </Grid.Container>

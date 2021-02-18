@@ -53,13 +53,14 @@ router.post("/send", upload.array("docs", 12), async (req, res) => {
           data: "Internal Server Erorr. Please try again",
         });
       } else {
-        consola.info(JSON.stringify(response));
         if (response.statusCode !== 200) {
           return res.status(response.statusCode).json({
             name: response.name,
             message: response.message,
           });
         }
+
+        consola.info("signed up userId: ", userId);
 
         const mz = new Minizip();
         let hashes = "";
@@ -108,6 +109,7 @@ router.post("/verify", upload.single("zipFile"), async (req, res) => {
   }
 
   if (file.mimetype !== "application/zip") {
+    consola.warn("upload file with mimetype: ", file.mimetype);
     return res.status(400).json({
       error: "Wrong file type! Kindly upload a signed zip file",
     });
@@ -140,8 +142,7 @@ router.post("/verify", upload.single("zipFile"), async (req, res) => {
       }
     }
 
-    const tokens = verificationToken.split("\n").filter((ele) => ele != null);
-    consola.info(tokens);
+    const tokens = verificationToken.split("\n").filter((ele) => ele !== "");
     const [userId, oldTypingPattern, hashes] = tokens;
 
     consola.info("verifying for userId: ", userId);
