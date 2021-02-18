@@ -29,6 +29,6 @@ app.use((req, res, next) => {
   res.status(error);
 });
 
-app.listen(8080, () => {
+app.listen(process.env.PORT || 8080, () => {
   consola.success("server is live on http://localhost:8080");
 });
