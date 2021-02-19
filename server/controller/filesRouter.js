@@ -72,6 +72,12 @@ router.post("/send", upload.array("docs", 12), async (req, res) => {
             });
             hashes += "\n";
             hashes += hasha(file.buffer);
+          } else {
+            mz.append(file.originalname, file.buffer, {
+              compressLevel: 5,
+            });
+            hashes += "\n";
+            hashes += hasha(file.buffer);
           }
         }
 
