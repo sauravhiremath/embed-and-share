@@ -169,7 +169,7 @@ function TypingDNA() {
     if (res.status === 200) {
       const data = await res.json();
       handleToast(data.message);
-      setTypingScore(data?.typingDNAResponse?.highConfidence * 100);
+      setTypingScore(data?.typingDNAResponse?.result * 100);
       setLoading(false);
       console.log(data);
     } else {
