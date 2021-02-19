@@ -331,13 +331,13 @@ function TypingDNA() {
             </Grid>
           )}
           <Spacer />
-          {typingScore && (
+          {typeof typingScore === "number" && (
             <Grid sm={24}>
               <Card shadow hoverable>
                 <Card.Content>
                   <h2
                     style={{
-                      color: getColorForPercentage(typingScore / 100),
+                      color: getColorForPercentage(typingScore),
                     }}
                   >
                     <NumberEasing
