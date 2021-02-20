@@ -1,0 +1,35 @@
+name: React CI
+
+on:
+  push:
+    branches: [master]
+    paths-ignore:
+      - "server/**"
+
+  pull_request:
+    branches: [master]
+    paths-ignore:
+      - "server/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: client
+
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: "."
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
