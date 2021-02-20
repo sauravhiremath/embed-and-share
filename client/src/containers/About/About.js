@@ -4,38 +4,29 @@ import VerifyFileArchitecture from "../../assets/verifyFileArchitecture.png";
 import ReviewsImage from "../../assets/reviews.svg";
 
 function About() {
-  // const codes = `
-  // const addSignature = (typingPattern, docsZip, password) => {
-  //   hash(docsZip);
-  //   embedPatternWithHash(typingPattern);
-  //   addOptionalPassword(password);
-
-  //   return secureZip;
-  // }`;
-
   const tableData = [
     {
-      strength: <Text b>Unique Embed Design</Text>,
-      reasoning:
+      feature: <Text b>Unique Embed Design</Text>,
+      information:
         "It gets embedded with the documents of ANY type to protect its integrity using the sha512 algorithm",
     },
     {
-      strength: <Text b>Security</Text>,
-      reasoning: `Adds a digital signature over your data. If someone changes the data - the signature won't be valid`,
+      feature: <Text b>Strong Encryption</Text>,
+      information: `Adds a digital signature over your data. If someone changes the data - the signature won't be valid`,
     },
     {
-      strength: <Text b>More Security</Text>,
-      reasoning: `Allows the user to add a password protection layer, if they want it more secure`,
+      feature: <Text b>Highly secure</Text>,
+      information: `Allows the user to add a password protection layer, if they want it more secure`,
     },
     {
-      strength: <Text b>No Plagiarism</Text>,
-      reasoning:
+      feature: <Text b>No Plagiarism</Text>,
+      information:
         "Easy validation of your content will help reduce data copying and modification",
     },
     {
-      strength: <Text b>Data privacy</Text>,
-      reasoning:
-        "Well it's a feature of typingDNA, not our proprietary feature. But still, we uphold it",
+      feature: <Text b>Data privacy</Text>,
+      information:
+        "We do not ask for your personal information, neither store anything on our servers. Everything is truly yours",
     },
   ];
 
@@ -54,8 +45,8 @@ function About() {
           <Spacer />
           <Grid sm={24}>
             <Table data={tableData}>
-              <Table.Column prop="strength" label="strength" width={150} />
-              <Table.Column prop="reasoning" label="reasoning" />
+              <Table.Column prop="feature" label="feature" width={150} />
+              <Table.Column prop="information" label="information" />
             </Table>
           </Grid>
         </Grid.Container>

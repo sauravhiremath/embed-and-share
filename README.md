@@ -36,10 +36,10 @@
 
 ## Why is this product different?
 
-| STRENGTH            | REASONING                                                                                           |
-| ------------------- | --------------------------------------------------------------------------------------------------- |
-| Unique Embed Design | It gets embedded with the documents of ANY type to protect its integrity using the sha512 algorithm |
-| Security            | Adds a digital signature over your data. If someone changes the data - the signature won't be valid |
-| More Security       | Allows the user to add a password protection layer, if they want it more secure                     |
-| Plagiarism          | Easy validation of your content will help reduce data copying and modification                      |
-| Data privacy        | Well it's a feature of typingDNA, not our proprietary feature. But still, we uphold it              |
+| FEATURE             | INFORMATION                                                                                                   |
+| ------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Unique Embed Design | It gets embedded with the documents of ANY type to protect its integrity using the sha512 algorithm           |
+| Strong Encryption   | Adds a digital signature over your data. If someone changes the data - the signature won't be valid           |
+| Highly secure       | Allows the user to add a password protection layer, if they want it more secure                               |
+| Plagiarism          | Easy validation of your content will help reduce data copying and modification                                |
+| Data privacy        | We do not ask for your personal information, neither store anything on our servers. Everything is truly yours |
