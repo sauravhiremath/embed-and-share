@@ -115,7 +115,7 @@ router.post("/verify", upload.single("zipFile"), async (req, res) => {
   }
 
   if (file.mimetype !== "application/zip") {
-    consola.warn("upload file with mimetype: ", file.mimetype);
+    consola.warn("Uploaded wrong file with mimetype: ", file.mimetype);
     return res.status(400).json({
       error: "Wrong file type! Kindly upload a signed zip file",
     });
@@ -144,22 +144,25 @@ router.post("/verify", upload.single("zipFile"), async (req, res) => {
       }
       if (filepath === "tokenHash.txt") {
         const extractedFile = mz.extract(filepath);
-        oldHash = hasha(extractedFile);
+        oldHash = extractedFile.toString();
       }
     }
 
-    const tokens = verificationToken.split("\n").filter((ele) => ele !== "");
+    const tokens = verificationToken
+      .split("\n")
+      .filter((ele) => ele.trim() != "");
     const [userId, oldTypingPattern, hashes] = tokens;
 
     consola.info("verifying for userId: ", userId);
 
-    typingDnaClient.auto(userId, typingPattern, (err, response) => {
-      if (err) {
-        consola.warn(err);
+    const isShaVerified = oldHash === newHash;
+
+    typingDnaClient.auto(userId, typingPattern, (error, response) => {
+      if (error) {
+        consola.warn(error);
         return res.status(500).json({
           success: false,
-          error: err,
-          data: "Internal Server Erorr. Please try again",
+          error,
         });
       } else {
         consola.info(JSON.stringify(response));
@@ -174,6 +177,7 @@ router.post("/verify", upload.single("zipFile"), async (req, res) => {
           success: true,
           typingPattern,
           typingDNAResponse: response,
+          isVerified: isShaVerified,
           message: "Signed-zip file verification is complete!",
         });
       }
