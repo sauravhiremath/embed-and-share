@@ -5,10 +5,10 @@ const cors = require("cors");
 const consola = require("consola");
 const helmet = require("helmet");
 const controller = require("./controller");
-
+const { corsOptions } = require("./env");
 const app = express();
 
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(helmet());
@@ -18,7 +18,7 @@ app.disable("x-powered-by");
 
 app.use("/api", controller);
 
-app.get("/ping", (req, res) => {
+app.get("/", (req, res) => {
   res.send(`Ping test working - ${Date.now()}`);
 });
 
