@@ -23,7 +23,8 @@ import {
   CloudLightning,
 } from "@geist-ui/react-icons";
 import NumberEasing from "react-number-easing";
-import { getColorForPercentage } from "../../helpers";
+
+import { getColorForPercentage, toArrayBuffer } from "../../helpers";
 import { sample1, sample2, sample3 } from "./typingPatternSample";
 import UploadFile from "./UploadFile";
 import SignFiles from "../../assets/sign-files.svg";
@@ -117,14 +118,14 @@ function TypingDNA() {
       formData3.append("zipFile", signedBuffer);
       formData3.append("typingPattern", typingPattern3);
 
-      await new Promise((r) => setTimeout(r, 1000));
+      await new Promise((r) => setTimeout(r, 500));
 
       const res2 = await fetch(`${BASE_URL}/api/dna/verify`, {
         method: "POST",
         body: formData2,
       });
 
-      await new Promise((r) => setTimeout(r, 1000));
+      await new Promise((r) => setTimeout(r, 500));
 
       const res3 = await fetch(`${BASE_URL}/api/dna/verify`, {
         method: "POST",
@@ -137,9 +138,9 @@ function TypingDNA() {
 
         console.log(data2);
         console.log(data3);
-        handleToast(data1.message);
-        handleToast(data2.message);
-        handleToast(data3.message);
+        handleToast(data1.message || data1.error);
+        handleToast(data2.message || data2.error);
+        handleToast(data3.message || data3.error);
         setFileData(data1.signedFile);
         setLoading(false);
       } else {
@@ -389,15 +390,6 @@ function TypingDNA() {
       </Grid>
     </Grid.Container>
   );
-}
-
-function toArrayBuffer(buffer) {
-  var ab = new ArrayBuffer(buffer.length);
-  var view = new Uint8Array(ab);
-  for (var i = 0; i < buffer.length; ++i) {
-    view[i] = buffer[i];
-  }
-  return ab;
 }
 
 export default TypingDNA;

@@ -24,3 +24,12 @@ export const getColorForPercentage = function (pct) {
   return "rgb(" + [color.r, color.g, color.b].join(",") + ")";
   // or output as hex if preferred
 };
+
+export const toArrayBuffer = (buffer) => {
+  var ab = new ArrayBuffer(buffer.length);
+  var view = new Uint8Array(ab);
+  for (var i = 0; i < buffer.length; ++i) {
+    view[i] = buffer[i];
+  }
+  return ab;
+};
