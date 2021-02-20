@@ -8,7 +8,7 @@ if (!TYPINGDNA_API_KEY || !TYPINGDNA_API_SECRET) {
 }
 
 /** @type CorsOptions */
-const corsOptions = { origin: ["http://localhost:8080"] };
+const corsOptions = { origin: ["http://localhost:3000"] };
 if (NODE_ENV === "production") {
   corsOptions.origin = [
     "https://embed.sauravmh.com",
