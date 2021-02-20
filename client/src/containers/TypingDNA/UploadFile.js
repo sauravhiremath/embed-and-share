@@ -1,10 +1,10 @@
 import "./TypingDNA.css";
 import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import { Card, Grid, Text, Tree } from "@geist-ui/react";
+import { Card, Code, Grid, Text, Tree } from "@geist-ui/react";
 import { Upload } from "@geist-ui/react-icons";
 
-const UploadFile = ({ setFileBuffers }) => {
+const UploadFile = ({ setFileBuffers, fileLimit, sizeLimit, fileTypes }) => {
   const onDrop = useCallback(
     (acceptedFiles, _, e) => {
       acceptedFiles.forEach((file) => {
@@ -41,6 +41,11 @@ const UploadFile = ({ setFileBuffers }) => {
             <Text h5>
               Drag 'n' drop single file here, or click to select files
             </Text>
+            <Code>
+              {`Max. files limit - ${fileLimit}
+Max. size limit per file - ${sizeLimit} MB
+Allowed file types - ${fileTypes}`}
+            </Code>
           </Card>
         </Grid>
         <Grid sm={24}>
