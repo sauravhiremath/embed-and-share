@@ -184,7 +184,7 @@ function TypingDNA() {
     <Grid.Container justify="space-between">
       <Grid xs={15}>
         <Grid.Container justify="flex-start">
-          <Grid sm={24} alignItems="baseline">
+          <Grid sm={18} alignItems="baseline">
             <Text h2>Demo</Text>
             <Spacer x={0.5} />
             <CheckCircle />
@@ -199,7 +199,8 @@ function TypingDNA() {
                 - verify documents
               </Text>
             )}
-            <Spacer x={0.5} />
+          </Grid>
+          <Grid sm={6} alignItems="center">
             <Text small type="success">
               <Toggle
                 size="large"
@@ -215,11 +216,29 @@ function TypingDNA() {
                   setVerificationMode(e.target.checked);
                 }}
               />
-              {!verificationMode && "switch to verify mode"}
-              {verificationMode && "switch to signing mode"}
+            </Text>
+            <Spacer x={0.5} />
+            <Text b small type="secondary">
+              {!verificationMode && "SWITCH TO VERIFY MODE"}
+              {verificationMode && "SWITCH TO SIGNING MODE"}
             </Text>
           </Grid>
+          <Spacer y={0.2} />
           <Grid sm={24}>
+            {!verificationMode && (
+              <Text b type="success">
+                ➜ Instructions - Type the following sentences 3 times to record
+                your typing DNA
+              </Text>
+            )}
+            {verificationMode && (
+              <Text b type="success">
+                ➜ Instructions - Type the following sentence to cross check file
+                integrity
+              </Text>
+            )}
+          </Grid>
+          <Grid sm={24} alignItems="baseline">
             <Text blockquote type="error">
               {agreementContent1}
             </Text>
@@ -279,7 +298,12 @@ function TypingDNA() {
                 onChange={(e) => setPassword(e.target.value)}
               >
                 <Dot type="warning">
-                  <Text small>Optional for securing zip files</Text>
+                  <Text small i b type="secondary">
+                    Optional{" "}
+                  </Text>
+                  <Text small type="secondary">
+                    for securing zip files
+                  </Text>
                 </Dot>
               </Input>
             </Grid>
@@ -288,11 +312,26 @@ function TypingDNA() {
             <Grid.Container justify="center">
               <Grid sm={24}>
                 <Text b p type="success">
-                  Upload documents here
+                  ➜ Upload documents here
                 </Text>
               </Grid>
               <Grid sm={24}>
-                <UploadFile setFileBuffers={setFileBuffers} />
+                {!verificationMode && (
+                  <UploadFile
+                    setFileBuffers={setFileBuffers}
+                    fileLimit={12}
+                    sizeLimit={10}
+                    fileTypes="any type"
+                  />
+                )}
+                {verificationMode && (
+                  <UploadFile
+                    setFileBuffers={setFileBuffers}
+                    fileLimit={1}
+                    sizeLimit={10}
+                    fileTypes=".zip"
+                  />
+                )}
               </Grid>
             </Grid.Container>
           </Grid>
