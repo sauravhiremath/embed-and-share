@@ -1,18 +1,10 @@
 import "./Landing.css";
-import {
-  Row,
-  Image,
-  Spacer,
-  Text,
-  Display,
-  Page,
-  Col,
-  Link,
-} from "@geist-ui/react";
+import { Row, Image, Spacer, Text, Display, Page, Col } from "@geist-ui/react";
 import TwoFactor from "../../assets/two-fac.svg";
 
 import TypingDNA from "../TypingDNA/TypingDnaView";
 import About from "../About/About";
+import Footer from "../Footer/Footer";
 
 function Landing() {
   return (
@@ -62,14 +54,9 @@ function Landing() {
           <Spacer y={3} />
           <About />
         </Page.Content>
-        <Page.Footer>
-          <Link
-            href="https://github.com/sauravhiremath/embed-and-share"
-            icon
-            color
-          >
-            © https://github.com/sauravhiremath/embed-and-share
-          </Link>
+        <Page.Footer style={{ display: "contents" }}>
+          <Footer />
+          <Spacer />
         </Page.Footer>
       </Page>
     </div>
