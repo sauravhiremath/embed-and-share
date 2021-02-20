@@ -31,7 +31,11 @@ const UploadFile = ({ setFileBuffers }) => {
     <div className="upload">
       <Grid.Container justify="flex-start">
         <Grid sm={24}>
-          <Card hoverable shadow {...getRootProps({ className: "dropzone" })}>
+          <Card
+            hoverable
+            shadow
+            {...getRootProps({ refKey: "itemRef", className: "dropzone" })}
+          >
             <input {...getInputProps()} hidden />
             <Upload size={20} />
             <Text h5>
