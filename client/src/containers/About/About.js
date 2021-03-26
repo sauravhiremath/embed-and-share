@@ -1,3 +1,4 @@
+import "./aboutus.css";
 import { Grid, Image, Spacer, Text, Table } from "@geist-ui/react";
 import SignFileArchitecture from "../../assets/signFileArchitecture.png";
 import VerifyFileArchitecture from "../../assets/verifyFileArchitecture.png";
@@ -38,8 +39,15 @@ function About() {
       <Grid sm={14}>
         <Grid.Container>
           <Grid sm={24}>
-            <Text p b size={35} type="success" autoCapitalize="none">
-              What's different in this product?
+            <Text
+              p
+              b
+              size={35}
+              type="success"
+              autoCapitalize="none"
+              className="sub-header"
+            >
+              WHY USE THIS?
             </Text>
           </Grid>
           <Spacer />
@@ -55,7 +63,7 @@ function About() {
       <Grid sm={24}>
         <Grid.Container>
           <Grid sm={24}>
-            <Text p b size={35} type="success">
+            <Text p b size={35} type="success" className="sub-header">
               PRODUCT ARCHITECTURE
             </Text>
           </Grid>
