@@ -55,10 +55,6 @@ function Landing() {
           <Spacer y={3} />
           <About />
         </Page.Content>
-        <Page.Footer style={{ display: "contents" }}>
-          <Footer />
-          <Spacer />
-        </Page.Footer>
       </Page>
     </div>
   );

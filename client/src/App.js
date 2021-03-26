@@ -1,7 +1,13 @@
+import Footer from "./containers/Footer/Footer";
 import Landing from "./containers/Landing/Landing";
 
 function App() {
-  return <Landing />;
+  return (
+    <div>
+      <Landing />;
+      <Footer />
+    </div>
+  );
 }
 
 export default App;
