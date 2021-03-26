@@ -1,3 +1,16 @@
 .landing {
   display: flex;
 }
+
+@media screen and (min-width: 601px) {
+  .header {
+    font-size: 6vw;
+  }
+}
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+  .header {
+    font-size: 12vw;
+  }
+}

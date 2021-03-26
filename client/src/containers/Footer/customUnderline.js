@@ -3,7 +3,7 @@ import "./footer.css";
 export function CustomUnderline({ text, link, style }) {
   return (
     <div style={{ display: "inline-flex" }}>
-      <div class="svg-wrap">
+      <div className="svg-wrap">
         <svg viewBox="0 0 400 60" xmlns="http://www.w3.org/2000/svg">
           <path
             id="svg_marker"
@@ -11,7 +11,7 @@ export function CustomUnderline({ text, link, style }) {
           ></path>
         </svg>
       </div>
-      <section class="link-svgmarker">
+      <section className="link-svgmarker">
         <span
           href={link}
           rel="noreferrer"
@@ -19,7 +19,7 @@ export function CustomUnderline({ text, link, style }) {
           style={{ fontWeight: 600, ...style }}
         >
           {text}
-          <svg class="link-svgline">
+          <svg className="link-svgline">
             <use xlinkHref="#svg_marker"></use>
           </svg>
         </span>
