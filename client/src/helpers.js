@@ -1,3 +1,5 @@
+import { getCLS, getFID, getLCP } from "web-vitals";
+
 var percentColors = [
   { pct: 0.0, color: { r: 0xff, g: 0x00, b: 0 } },
   { pct: 0.5, color: { r: 0xff, g: 0xcc, b: 0 } },
@@ -33,3 +35,13 @@ export const toArrayBuffer = (buffer) => {
   }
   return ab;
 };
+
+export function sendToAnalytics({ name, delta, value, id }) {
+  window.gtag("event", name, {
+    value: delta,
+    // Custom params:
+    metric_id: id,
+    metric_value: value,
+    metric_delta: delta,
+  });
+}
