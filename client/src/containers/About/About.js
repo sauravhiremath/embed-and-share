@@ -33,12 +33,12 @@ function About() {
 
   return (
     <Grid.Container justify="space-between" gap={4}>
-      <Grid sm={10}>
-        <Image src={ReviewsImage} />
+      <Grid md={10} sm={24} xs={24}>
+        <Image src={ReviewsImage} style={{ maxWidth: "80vw" }} />
       </Grid>
-      <Grid sm={14}>
+      <Grid md={14} sm={24} xs={24}>
         <Grid.Container>
-          <Grid sm={24}>
+          <Grid xs={24}>
             <Text
               p
               b
@@ -51,7 +51,7 @@ function About() {
             </Text>
           </Grid>
           <Spacer />
-          <Grid sm={24}>
+          <Grid xs={24}>
             <Table data={tableData}>
               <Table.Column prop="feature" label="feature" width={150} />
               <Table.Column prop="information" label="information" />
@@ -60,29 +60,29 @@ function About() {
         </Grid.Container>
       </Grid>
       <Spacer y={1} />
-      <Grid sm={24}>
+      <Grid xs={24}>
         <Grid.Container>
-          <Grid sm={24}>
+          <Grid xs={24}>
             <Text p b size={35} type="success" className="sub-header">
               PRODUCT ARCHITECTURE
             </Text>
           </Grid>
           <Spacer />
-          <Grid sm={24}>
+          <Grid xs={24}>
             <Text h3 type="warning">
               Files Signature Embed Architecture
             </Text>
           </Grid>
-          <Grid sm={24} id="architecture">
+          <Grid xs={24} id="architecture">
             <Image src={SignFileArchitecture} />
           </Grid>
           <Spacer />
-          <Grid sm={24}>
+          <Grid xs={24}>
             <Text h3 type="warning">
               Files Signature Verification Architecture
             </Text>
           </Grid>
-          <Grid sm={24}>
+          <Grid xs={24}>
             <Image src={VerifyFileArchitecture} />
           </Grid>
         </Grid.Container>
