@@ -28,48 +28,47 @@ const UploadFile = ({ setFileBuffers, fileLimit, sizeLimit, fileTypes }) => {
   });
 
   return (
-    <div className="upload">
-      <Grid.Container justify="flex-start">
-        <Grid sm={24}>
-          <Card
-            hoverable
-            shadow
-            {...getRootProps({ refKey: "itemRef", className: "dropzone" })}
-          >
-            <input {...getInputProps()} hidden />
-            <Upload size={20} />
-            <Text h5>
-              Drag 'n' drop single file here, or click to select files
-            </Text>
-            <Code>
-              {`Max. files limit - ${fileLimit}
+    <Grid.Container justify="flex-start">
+      <Grid xs={24}>
+        <Card
+          hoverable
+          shadow
+          style={{ textAlign: "center" }}
+          {...getRootProps({ refKey: "itemRef", className: "dropzone" })}
+        >
+          <input {...getInputProps()} hidden />
+          <Upload size={20} />
+          <Text h5>
+            Drag 'n' drop single file here, or click to select files
+          </Text>
+          <Code>
+            {`Max. files limit - ${fileLimit}
 Max. size limit per file - ${sizeLimit} MB
 Allowed file types - ${fileTypes}`}
-            </Code>
-          </Card>
-        </Grid>
-        <Grid sm={24}>
-          <Text b p type="secondary">
-            Uploaded documents
-          </Text>
-        </Grid>
-        <Grid>
-          <Tree initialExpand>
-            <Tree.Folder name="my-documents">
-              {acceptedFiles.map((file) => {
-                return (
-                  <Tree.File
-                    key={file.name}
-                    name={file.path}
-                    extra={`${file.size} bytes`}
-                  />
-                );
-              })}
-            </Tree.Folder>
-          </Tree>
-        </Grid>
-      </Grid.Container>
-    </div>
+          </Code>
+        </Card>
+      </Grid>
+      <Grid xs={24}>
+        <Text b p type="secondary">
+          Uploaded documents
+        </Text>
+      </Grid>
+      <Grid xs={24}>
+        <Tree initialExpand>
+          <Tree.Folder name="my-documents">
+            {acceptedFiles.map((file) => {
+              return (
+                <Tree.File
+                  key={file.name}
+                  name={file.path}
+                  extra={`${file.size} bytes`}
+                />
+              );
+            })}
+          </Tree.Folder>
+        </Tree>
+      </Grid>
+    </Grid.Container>
   );
 };
 

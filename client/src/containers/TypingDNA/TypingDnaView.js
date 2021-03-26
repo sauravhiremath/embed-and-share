@@ -181,10 +181,10 @@ function TypingDNA() {
   };
 
   return (
-    <Grid.Container justify="space-between">
-      <Grid xs={14}>
-        <Grid.Container justify="flex-start">
-          <Grid sm={18} alignItems="baseline">
+    <Grid.Container justify="space-between" gap={2}>
+      <Grid lg={14} md={24} sm={24} xs={24}>
+        <Grid.Container justify="flex-start" gap={2}>
+          <Grid md={18} sm={20} xs={24} alignItems="baseline">
             <Text h2>Demo</Text>
             <Spacer x={0.5} />
             <CheckCircle />
@@ -200,7 +200,7 @@ function TypingDNA() {
               </Text>
             )}
           </Grid>
-          <Grid sm={6} alignItems="center">
+          <Grid md={6} sm={4} xs={24} alignItems="center">
             <Text small type="success">
               <Toggle
                 size="large"
@@ -224,7 +224,7 @@ function TypingDNA() {
             </Text>
           </Grid>
           <Spacer y={0.2} />
-          <Grid sm={24}>
+          <Grid xs={24}>
             {!verificationMode && (
               <Text b type="success">
                 ➜ Instructions - Type the following sentences 3 times to record
@@ -238,12 +238,12 @@ function TypingDNA() {
               </Text>
             )}
           </Grid>
-          <Grid sm={24} alignItems="baseline">
+          <Grid xs={24} alignItems="baseline">
             <Text blockquote type="error">
               {agreementContent1}
             </Text>
           </Grid>
-          <Grid sm={24}>
+          <Grid xs={24}>
             <Input
               value={userAgreementContent1}
               onChange={(e) => setUserAgreementContent1(e.target.value)}
@@ -253,14 +253,14 @@ function TypingDNA() {
             />
           </Grid>
           {!verificationMode && (
-            <Grid sm={24}>
+            <Grid xs={24}>
               <Text blockquote type="error">
                 {agreementContent2}
               </Text>
             </Grid>
           )}
           {!verificationMode && (
-            <Grid sm={24}>
+            <Grid xs={24}>
               <Input
                 value={userAgreementContent2}
                 onChange={(e) => setUserAgreementContent2(e.target.value)}
@@ -271,14 +271,14 @@ function TypingDNA() {
             </Grid>
           )}
           {!verificationMode && (
-            <Grid sm={24}>
+            <Grid xs={24}>
               <Text blockquote type="error">
                 {agreementContent3}
               </Text>
             </Grid>
           )}
           {!verificationMode && (
-            <Grid sm={24}>
+            <Grid xs={24}>
               <Input
                 value={userAgreementContent3}
                 onChange={(e) => setUserAgreementContent3(e.target.value)}
@@ -290,7 +290,7 @@ function TypingDNA() {
           )}
           <Spacer />
           {!verificationMode && (
-            <Grid sm={24}>
+            <Grid xs={24}>
               <Input
                 label="Password"
                 type="password"
@@ -308,14 +308,14 @@ function TypingDNA() {
               </Input>
             </Grid>
           )}
-          <Grid sm={24}>
-            <Grid.Container justify="center">
-              <Grid sm={24}>
+          <Grid xs={24}>
+            <Grid.Container justify="flex-start">
+              <Grid xs={24}>
                 <Text b p type="success">
                   ➜ Upload documents here
                 </Text>
               </Grid>
-              <Grid sm={24}>
+              <Grid xs={24}>
                 {!verificationMode && (
                   <UploadFile
                     setFileBuffers={setFileBuffers}
@@ -337,7 +337,7 @@ function TypingDNA() {
           </Grid>
           <Spacer />
           {!verificationMode && (
-            <Grid sm={24}>
+            <Grid xs={24}>
               {fileData === "" && (
                 <Button
                   auto
@@ -372,7 +372,7 @@ function TypingDNA() {
           )}
           <Spacer />
           {typeof typingScore === "number" && (
-            <Grid sm={24}>
+            <Grid xs={24}>
               <Card shadow hoverable>
                 <Card.Content>
                   <h2
@@ -400,7 +400,7 @@ function TypingDNA() {
           )}
           <Spacer />
           {verificationMode && (
-            <Grid sm={24}>
+            <Grid xs={24}>
               {fileData === "" && (
                 <Button
                   auto
@@ -418,14 +418,10 @@ function TypingDNA() {
           )}
         </Grid.Container>
       </Grid>
-      <Grid xs={10}>
-        <Grid.Container justify="flex-start">
-          <Grid>
-            <Display>
-              <Image height={400} src={SignFiles} />
-            </Display>
-          </Grid>
-        </Grid.Container>
+      <Grid lg={10} md={0} sm={0} xs={0}>
+        <Display>
+          <Image src={SignFiles} style={{ maxWidth: "15vw" }} />
+        </Display>
       </Grid>
     </Grid.Container>
   );
