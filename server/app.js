@@ -5,12 +5,11 @@ const cors = require("cors");
 const consola = require("consola");
 const helmet = require("helmet");
 const controller = require("./controller");
-const { corsOptions } = require("./env");
+const { CORS_OPTIONS, HOST } = require("./env");
 const app = express();
 
-app.use(cors(corsOptions));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors(CORS_OPTIONS));
+app.use(express.json());
 app.use(helmet());
 app.use(helmet.xssFilter());
 app.use(helmet.noSniff());
@@ -30,5 +29,5 @@ app.use((req, res, next) => {
 });
 
 app.listen(process.env.PORT || 8080, () => {
-  consola.success("server is live on http://localhost:8080");
+  consola.success(`server is live on ${HOST}`);
 });

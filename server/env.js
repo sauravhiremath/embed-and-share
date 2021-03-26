@@ -7,19 +7,23 @@ if (!TYPINGDNA_API_KEY || !TYPINGDNA_API_SECRET) {
   consola.warn("Missing key and secret. Kindly add the required .env vars");
 }
 
+let HOST = "http://localhost:3000";
+
 /** @type CorsOptions */
-const corsOptions = { origin: ["http://localhost:3000"] };
+const CORS_OPTIONS = { origin: ["http://localhost:3000"] };
 if (NODE_ENV === "production") {
-  corsOptions.origin = [
+  CORS_OPTIONS.origin = [
     "https://embed.sauravmh.com",
     "https://embed-and-share.vercel.app",
     "https://embed-and-share-git-master.sauravmh.vercel.app",
     "https://embed-and-share.sauravmh.vercel.app",
   ];
+  HOST = "https://embed.sauravmh.com";
 }
 
 module.exports = {
   TYPINGDNA_API_KEY,
   TYPINGDNA_API_SECRET,
-  corsOptions,
+  HOST,
+  CORS_OPTIONS,
 };
