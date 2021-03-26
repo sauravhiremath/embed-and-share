@@ -4,7 +4,6 @@ import TwoFactor from "../../assets/two-fac.svg";
 
 import TypingDNA from "../TypingDNA/TypingDnaView";
 import About from "../About/About";
-import Footer from "../Footer/Footer";
 
 function Landing() {
   return (
