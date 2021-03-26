@@ -182,7 +182,7 @@ function TypingDNA() {
 
   return (
     <Grid.Container justify="space-between">
-      <Grid xs={15}>
+      <Grid xs={14}>
         <Grid.Container justify="flex-start">
           <Grid sm={18} alignItems="baseline">
             <Text h2>Demo</Text>
@@ -418,7 +418,7 @@ function TypingDNA() {
           )}
         </Grid.Container>
       </Grid>
-      <Grid xs={9}>
+      <Grid xs={10}>
         <Grid.Container justify="flex-start">
           <Grid>
             <Display>
