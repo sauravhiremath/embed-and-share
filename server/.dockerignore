@@ -1,0 +1,10 @@
+*
+
+!yarn-offline-mirror/
+!controller/
+!package.json
+!yarn.lock
+!.yarnrc
+!env.js
+!app.js
+!.env

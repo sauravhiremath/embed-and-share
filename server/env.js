@@ -7,10 +7,10 @@ if (!TYPINGDNA_API_KEY || !TYPINGDNA_API_SECRET) {
   consola.warn("Missing key and secret. Kindly add the required .env vars");
 }
 
-let HOST = "http://localhost:3000";
+let HOST = "http://localhost:8080";
 
 /** @type CorsOptions */
-const CORS_OPTIONS = { origin: ["http://localhost:3000"] };
+const CORS_OPTIONS = { origin: ["http://localhost:8080"] };
 if (NODE_ENV === "production") {
   CORS_OPTIONS.origin = [
     "https://embed.sauravmh.com",
